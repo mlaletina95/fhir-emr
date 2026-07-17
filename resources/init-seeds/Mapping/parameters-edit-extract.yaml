@@ -1,0 +1,21 @@
+resourceType: Mapping
+id: parameters-edit-extract
+type: FHIRPath
+body:
+  "{% assign %}":
+    - parametersId: "{{ %QuestionnaireResponse.answers('parameters-id') }}"
+    - parameterRows: "{[ %QuestionnaireResponse.repeat(item).where(linkId='parameters') ]}"
+
+  resourceType: Bundle
+  type: transaction
+  entry:
+    - request:
+        method: PUT
+        url: "/Parameters/{{ %parametersId }}"
+      resource:
+        resourceType: Parameters
+        id: "{{ %parametersId }}"
+        parameter:
+          - "{% for row in %parameterRows %}":
+              name: "{{ %row.item.where(linkId='parameter-name').answer.valueString }}"
+              valueString: "{{ %row.item.where(linkId='parameter-value').answer.valueString }}"

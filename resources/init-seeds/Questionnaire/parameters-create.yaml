@@ -1,0 +1,32 @@
+id: parameters-create
+resourceType: Questionnaire
+name: parameters-create
+title: Parameters create
+status: active
+description: Creates a new Parameters resource with named string values.
+mapping:
+  - reference: urn:uuid:Mapping:parameters-create-extract
+item:
+  - linkId: name
+    text: Name
+    type: string
+    required: true
+    helpText: Unique identifier for this parameter set (used as resource id).
+  - linkId: parameters
+    text: Parameters
+    type: group
+    repeats: true
+    required: true
+    item:
+      - linkId: parameter-name
+        text: Variable name
+        type: string
+        required: true
+      - linkId: parameter-value
+        text: Value
+        type: string
+        required: true
+meta:
+  profile:
+    - https://emr-core.beda.software/StructureDefinition/fhir-emr-questionnaire
+url: https://aidbox.emr.beda.software/fhir/Questionnaire/parameters-create

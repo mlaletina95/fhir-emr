@@ -1,0 +1,21 @@
+resourceType: Mapping
+id: parameters-create-extract
+type: FHIRPath
+body:
+  "{% assign %}":
+    - name: "{{ %QuestionnaireResponse.answers('name') }}"
+    - parameterRows: "{[ %QuestionnaireResponse.repeat(item).where(linkId='parameters') ]}"
+
+  resourceType: Bundle
+  type: transaction
+  entry:
+    - request:
+        method: POST
+        url: /Parameters
+      resource:
+        resourceType: Parameters
+        id: "{{ %name }}"
+        parameter:
+          - "{% for row in %parameterRows %}":
+              name: "{{ %row.item.where(linkId='parameter-name').answer.valueString }}"
+              valueString: "{{ %row.item.where(linkId='parameter-value').answer.valueString }}"

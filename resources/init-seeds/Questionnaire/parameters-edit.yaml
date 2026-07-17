@@ -1,0 +1,56 @@
+id: parameters-edit
+resourceType: Questionnaire
+name: parameters-edit
+title: Parameters edit
+status: active
+description: Edits an existing Parameters resource.
+launchContext:
+  - name:
+      code: Parameters
+    type:
+      - Parameters
+mapping:
+  - reference: urn:uuid:Mapping:parameters-edit-extract
+item:
+  - linkId: parameters-id
+    text: Parameters ID
+    type: string
+    hidden: true
+    readOnly: true
+    initialExpression:
+      language: text/fhirpath
+      expression: "%Parameters.id"
+  - linkId: name
+    text: Name
+    type: string
+    readOnly: true
+    initialExpression:
+      language: text/fhirpath
+      expression: "%Parameters.id"
+  - linkId: parameters
+    text: Parameters
+    type: group
+    repeats: true
+    required: true
+    itemPopulationContext:
+      language: text/fhirpath
+      expression: "%Parameters.parameter"
+    item:
+      - linkId: parameter-name
+        text: Variable name
+        type: string
+        required: true
+        initialExpression:
+          language: text/fhirpath
+          expression: "%context.name"
+      - linkId: parameter-value
+        text: Value
+        type: string
+        required: true
+        initialExpression:
+          language: text/fhirpath
+          expression: "%context.valueString"
+meta:
+  profile:
+    - https://emr-core.beda.software/StructureDefinition/fhir-emr-questionnaire
+url: https://aidbox.emr.beda.software/fhir/Questionnaire/parameters-edit

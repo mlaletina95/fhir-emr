@@ -19,6 +19,7 @@ import { QuestionnaireBuilder } from 'src/containers/QuestionnaireBuilder';
 import { QuestionnaireList } from 'src/containers/QuestionnaireList';
 import { SignIn } from 'src/containers/SignIn';
 import { VideoCall } from 'src/containers/VideoCall';
+import { ParametersListPage } from 'src/uberComponents/ParametersListPage';
 
 import { AidboxFormsBuilder } from '../AidboxFormsBuilder';
 import { EMR } from '../EMR';
@@ -68,6 +69,7 @@ export function App(props: AppProps) {
             <Route path="/questionnaires/:id" element={<div>questionnaires/:id</div>} />
             <Route path="/magic-search" element={<MagicSearchPage />} />
             <Route path="/healthcare-services" element={<HealthcareServiceList />} />
+            <Route path="/parameters" element={<ParametersListPage />} />
         </>
     );
 
